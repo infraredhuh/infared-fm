@@ -6,7 +6,7 @@ if TYPE_CHECKING:
     from ..client import LastFMClient
 
 class ChartAPI:
-    def __init__(self, client: LastFMClient):
+    def __init__(self, client: "LastFMClient"):
         self._client = client
 
     async def get_top_tracks(self, limit: int = 50, pages: int = 1) -> List[Track]:

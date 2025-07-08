@@ -31,7 +31,7 @@
 ### <span style="color:#7a0f17">how to</span>
 
 ```py
-from infrared.fm impor LastFM
+from infrared.fm import LastFM
 lfm = LastFM("...")
 
 track = await lfm.now_playing("infraredhuh")

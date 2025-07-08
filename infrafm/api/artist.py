@@ -1,7 +1,10 @@
-from typing import List
-from ..client import LastFMClient
 from ..models.artist import Artist, Track, Album
 from ..utils import paginate
+
+from typing import List, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ..client import LastFMClient
 
 class ArtistAPI:
     def __init__(self, client: LastFMClient):

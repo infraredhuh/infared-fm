@@ -1,4 +1,4 @@
-from ..models.album import Album
+from ..models import Album
 from ..utils import paginate
 from typing import List, TYPE_CHECKING
 

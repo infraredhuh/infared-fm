@@ -2,6 +2,10 @@ from typing import List, Optional
 from ..client import LastFMClient
 from ..models.track import Track
 from ..utils import paginate
+from typing import List, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ..client import LastFMClient
 
 class TrackAPI:
     def __init__(self, client: LastFMClient):

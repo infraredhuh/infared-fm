@@ -1,8 +1,7 @@
-from typing import List, Optional
 from ..client import LastFMClient
 from ..models.track import Track
 from ..utils import paginate
-from typing import List, TYPE_CHECKING
+from typing import List, TYPE_CHECKING, Optional
 
 if TYPE_CHECKING:
     from ..client import LastFMClient

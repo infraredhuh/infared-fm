@@ -7,6 +7,9 @@ class Track(BaseModel):
     artist: str = ""
     album: str = ""
     url: str = ""
+    duration: str = ""
+    listeners: str = ""
+    playcount: str = ""
     now_playing: bool = False
 
     @classmethod

@@ -1,4 +1,4 @@
-from ..models.user import User, Track
+from ..models import User, Track
 from ..utils import paginate
 from typing import TYPE_CHECKING, Any, Dict, List, Optional
 

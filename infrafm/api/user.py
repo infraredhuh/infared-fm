@@ -6,7 +6,7 @@ if TYPE_CHECKING:
     from ..client import LastFMClient
 
 class UserAPI:
-    def __init__(self, client: LastFMClient):
+    def __init__(self, client: "LastFMClient"):
         self._client = client
 
     async def get_info(self, user: str) -> User:

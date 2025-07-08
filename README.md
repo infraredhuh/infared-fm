@@ -16,18 +16,19 @@
 
 ---
 
-### what is this
+### <span style="color:#7a0f17">what is this</span>
 
-infrared.fm  
-a lowkey async wrapper for last.fm  
-built for the bot. kept for the flex.
+**infrared.fm**  
+> the last.fm wrapper powering `infrared`  
+> built for speed. async. clean.
 
-- users, tracks, artists, albums, charts  
-- fast. minimal. wrapped in black.
+- user, artist, album, track, and chart endpoints  
+- powers dynamic embed views: nowplaying, charts, stats  
+- no extra weight, just flex
 
 ---
 
-### how to
+### <span style="color:#7a0f17">how to</span>
 
 ```py
 from infrared.fm import LastFM

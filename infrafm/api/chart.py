@@ -1,9 +1,11 @@
-from typing import List
-from ..client import LastFMClient
 from ..models.track import Track
 from ..models.artist import Artist
 from ..models.tag import Tag
 from ..utils import paginate
+from typing import List, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ..client import LastFMClient
 
 class ChartAPI:
     def __init__(self, client: LastFMClient):

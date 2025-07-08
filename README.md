@@ -31,9 +31,19 @@
 ### <span style="color:#7a0f17">how to</span>
 
 ```py
-from infrafm import LastFM
-lfm = LastFM("...")
+import asyncio
+from infrafm import LastFMClient
 
-track = await lfm.now_playing("infraredhuh")
-print(track.name)
-print(track.raw["duration"])  # custom field not modeled
+lfm = LastFMClient("your_lastfm_api_key")
+
+async def main():
+    track = await lfm.user.get_now_playing("opexwtf")
+
+    if track:
+        print(f"🎧 {track.name} — {track.artist}")
+    else:
+        print("No track playing.")
+
+    await lfm.close()
+
+asyncio.run(main())

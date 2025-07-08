@@ -1,4 +1,4 @@
-from ..models.tag import Tag, Track, Artist, Album
+from ..models import Tag, Track, Artist, Album
 from ..utils import paginate
 from typing import List, TYPE_CHECKING
 

@@ -1,5 +1,5 @@
 from ..client import LastFMClient
-from ..models.track import Track
+from ..models import Track
 from ..utils import paginate
 from typing import List, TYPE_CHECKING, Optional
 

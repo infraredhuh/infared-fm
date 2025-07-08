@@ -31,8 +31,9 @@
 ### <span style="color:#7a0f17">how to</span>
 
 ```py
-from infrared.fm import LastFM
+from infrared.fm impor LastFM
+lfm = Lastfm("...")
 
-lfm = LastFM(api_key="...")
-user = await lfm.get_user("...")
-np = await lfm.now_playing(user.name)
+track = await lfm.now_playing("opex")
+print(track.name)
+print(track.raw["duration"])  # custom field not modeled

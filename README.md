@@ -34,6 +34,6 @@
 from infrared.fm impor LastFM
 lfm = LastFM("...")
 
-track = await lfm.now_playing("opex")
+track = await lfm.now_playing("infraredhuh")
 print(track.name)
 print(track.raw["duration"])  # custom field not modeled

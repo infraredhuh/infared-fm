@@ -32,7 +32,7 @@
 
 ```py
 from infrared.fm impor LastFM
-lfm = Lastfm("...")
+lfm = LastFM("...")
 
 track = await lfm.now_playing("opex")
 print(track.name)

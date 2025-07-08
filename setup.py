@@ -1,5 +1,5 @@
 from setuptools import setup, find_packages
-# we go dummy
+# we go dumm
 setup(
     name="infrared-fm",
     version="0.1.0",

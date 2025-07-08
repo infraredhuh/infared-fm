@@ -1,8 +1,10 @@
-from typing import List
-from ..client import LastFMClient
 from ..models.artist import Artist
 from ..models.track import Track
 from ..utils import paginate
+from typing import List, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ..client import LastFMClient
 
 class GeoAPI:
     def __init__(self, client: LastFMClient):

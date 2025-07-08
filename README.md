@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/module-infrared.fm-7a0f17?style=flat&labelColor=000000" />
+  <img src="https://img.shields.io/badge/module-infrafm-7a0f17?style=flat&labelColor=000000" />
   <img src="https://img.shields.io/badge/api-last.fm-7a0f17?style=flat&labelColor=000000" />
   <img src="https://img.shields.io/badge/status-private-7a0f17?style=flat&labelColor=000000" />
 </p>
@@ -31,7 +31,7 @@
 ### <span style="color:#7a0f17">how to</span>
 
 ```py
-from infrared.fm import LastFM
+from infrafm import LastFM
 lfm = LastFM("...")
 
 track = await lfm.now_playing("infraredhuh")

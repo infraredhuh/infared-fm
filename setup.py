@@ -9,7 +9,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     url="https://github.com/infraredhuh/infrared-fm",
-    package_data={"infrared.fm": ["py.typed"]},
+    package_data={"infrafm": ["py.typed"]},
     install_requires=[
         "aiohttp>=3.9.0",
     ],

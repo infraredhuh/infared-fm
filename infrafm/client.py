@@ -2,13 +2,7 @@ import aiohttp
 from typing import Any, Dict, Optional
 
 from .exceptions import LastFMAPIError, LastFMHTTPError
-from .api.user import UserAPI
-from .api.track import TrackAPI
-from .api.album import AlbumAPI
-from .api.artist import ArtistAPI
-from .api.tag import TagAPI
-from .api.geo import GeoAPI
-from .api.chart import ChartAPI
+from .api import UserAPI, TrackAPI, AlbumAPI, ArtistAPI, TagAPI, GeoAPI, ChartAPI
 
 
 class LastFMClient:

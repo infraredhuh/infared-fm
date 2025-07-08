@@ -7,7 +7,7 @@ if TYPE_CHECKING:
     from ..client import LastFMClient
 
 class TrackAPI:
-    def __init__(self, client: LastFMClient):
+    def __init__(self, client: "LastFMClient"):
         self._client = client
 
     async def get_info(self, artist: str, track: str) -> Track:

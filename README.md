@@ -37,7 +37,7 @@ from infrafm import LastFMClient
 lfm = LastFMClient("your_lastfm_api_key")
 
 async def main():
-    track = await lfm.user.get_now_playing("opexwtf")
+    track = await lfm.user.get_now_playing("infrared")
 
     if track:
         print(f"🎧 {track.name} — {track.artist}")

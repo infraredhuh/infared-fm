@@ -1,7 +1,9 @@
-from typing import List
-from ..client import LastFMClient
 from ..models.album import Album
 from ..utils import paginate
+from typing import List, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ..client import LastFMClient
 
 class AlbumAPI:
     def __init__(self, client: LastFMClient):

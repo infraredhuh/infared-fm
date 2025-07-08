@@ -1,7 +1,9 @@
-from typing import Any, Dict, List, Optional
-from ..client import LastFMClient
 from ..models.user import User, Track
 from ..utils import paginate
+from typing import TYPE_CHECKING, Any, Dict, List, Optional
+
+if TYPE_CHECKING:
+    from ..client import LastFMClient
 
 class UserAPI:
     def __init__(self, client: LastFMClient):

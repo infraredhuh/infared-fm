@@ -5,7 +5,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/module-infrafm-7a0f17?style=flat&labelColor=000000" />
   <img src="https://img.shields.io/badge/api-last.fm-7a0f17?style=flat&labelColor=000000" />
-  <img src="https://img.shields.io/badge/status-private-7a0f17?style=flat&labelColor=000000" />
+  <img src="https://img.shields.io/badge/status-public-7a0f17?style=flat&labelColor=000000" />
 </p>
 
 <br>
@@ -23,8 +23,7 @@
 > built for speed. async. clean.
 
 - user, artist, album, track, and chart endpoints  
-- powers dynamic embed views: nowplaying, charts, stats  
-- no extra weight, just flex
+
 
 ---
 

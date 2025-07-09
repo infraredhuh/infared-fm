@@ -19,7 +19,7 @@
 ### <span style="color:#7a0f17">what is this</span>
 
 **infrared.fm**  
-> the last.fm wrapper powering `infrared`  
+> a simple last.fm wrapper powering `infrared`  
 > built for speed. async. clean.
 
 - user, artist, album, track, and chart endpoints  

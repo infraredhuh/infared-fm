@@ -34,9 +34,10 @@
 import asyncio
 from infrafm import LastFMClient
 
-lfm = LastFMClient("your_lastfm_api_key")
+
 
 async def main():
+    lfm = LastFMClient("your_lastfm_api_key")
     track = await lfm.user.get_now_playing("infrared")
 
     if track:

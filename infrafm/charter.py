@@ -100,11 +100,21 @@ class ChartBuilder:
 
     def _draw_label(self, img: Image.Image, label: str, font: ImageFont.ImageFont) -> Image.Image:
         draw = ImageDraw.Draw(img)
-        text_width, text_height = draw.textsize(label, font=font)
+
+
+        bbox = draw.textbbox((0, 0), label, font=font)
+        text_width = bbox[2] - bbox[0]
+        text_height = bbox[3] - bbox[1]
+
         padding = 4
         y_position = img.height - text_height - padding
-        draw.rectangle([0, y_position - 2, img.width, img.height], fill=(0, 0, 0, 180))
-        draw.text((img.width / 2, y_position), label, fill="white", font=font, anchor="mm")
+
+       
+        draw.rectangle([0, y_position - 2, img.width, img.height], fill=(0, 0, 0))
+
+       
+        draw.text((img.width // 2, y_position), label, fill="white", font=font, anchor="mt")
+
         return img
 
     async def build_collage(

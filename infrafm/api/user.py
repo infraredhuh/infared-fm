@@ -1,9 +1,10 @@
-from ..models import User, Track
-from ..utils import paginate
 from typing import TYPE_CHECKING, Any, Dict, List, Optional
+from ..models import User, Track, Album, Artist
+from ..utils import paginate
 
 if TYPE_CHECKING:
     from ..client import LastFMClient
+
 
 class UserAPI:
     def __init__(self, client: "LastFMClient"):
@@ -35,4 +36,31 @@ class UserAPI:
         if now_playing:
             return Track.from_data(track_data)
         return None
+
+    async def get_top_tracks(self, user: str, limit: int = 25, period: str = "overall") -> List[Track]:
+        data = await self._client.request(
+            "user.gettoptracks",
+            user=user,
+            limit=limit,
+            period=period
+        )
+        return [Track.from_data(t) for t in data["toptracks"]["track"]]
+
+    async def get_top_artists(self, user: str, limit: int = 25, period: str = "overall") -> List[Artist]:
+        data = await self._client.request(
+            "user.gettopartists",
+            user=user,
+            limit=limit,
+            period=period
+        )
+        return [Artist.from_data(a) for a in data["topartists"]["artist"]]
+
+    async def get_top_albums(self, user: str, limit: int = 25, period: str = "overall") -> List[Album]:
+        data = await self._client.request(
+            "user.gettopalbums",
+            user=user,
+            limit=limit,
+            period=period
+        )
+        return [Album.from_data(a) for a in data["topalbums"]["album"]]
 

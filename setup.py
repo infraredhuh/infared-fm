@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 # we go dumm
 setup(
     name="infrared-fm",
-    version="1.7.0",
+    version="1.8.0",
     description="Last.FM wrapper by Infrared LLC.",
     author="infrared",
     author_email="faneorg.official@gmail.com",
@@ -12,7 +12,7 @@ setup(
     package_data={"infrafm": ["py.typed"]},
     install_requires=[
         "aiohttp>=3.9.0",
-        "pillow>=9.0.0
+        "pillow>=9.0.0"
     ],
     python_requires=">=3.8",
     classifiers=[

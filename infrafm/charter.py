@@ -4,7 +4,7 @@ from io import BytesIO
 import math
 
 if TYPE_CHECKING:
-  from . import LastFMClient
+    from . import LastFMClient
 
 OutputMode = Literal["image", "file", "bytes"]
 ImageType = Literal["albums", "artists", "tracks"]
@@ -57,20 +57,23 @@ class ChartBuilder:
 
         if type == "albums":
             data = await self.client.user.get_top_albums(username=username, limit=limit, period=period)
-            for album in data["topalbums"]["album"]:
-                url = next((img["#text"] for img in album.get("image", [])[::-1] if img["#text"]), "")
+            for album in data:
+                images = album.raw.get("image", [])
+                url = next((img["#text"] for img in reversed(images) if img["#text"]), "")
                 urls.append(url)
 
         elif type == "artists":
             data = await self.client.user.get_top_artists(username=username, limit=limit, period=period)
-            for artist in data["topartists"]["artist"]:
-                url = next((img["#text"] for img in artist.get("image", [])[::-1] if img["#text"]), "")
+            for artist in data:
+                images = artist.raw.get("image", [])
+                url = next((img["#text"] for img in reversed(images) if img["#text"]), "")
                 urls.append(url)
 
         elif type == "tracks":
             data = await self.client.user.get_top_tracks(username=username, limit=limit, period=period)
-            for track in data["toptracks"]["track"]:
-                url = next((img["#text"] for img in track.get("image", [])[::-1] if img["#text"]), "")
+            for track in data:
+                images = track.raw.get("image", [])
+                url = next((img["#text"] for img in reversed(images) if img["#text"]), "")
                 urls.append(url)
 
         return urls

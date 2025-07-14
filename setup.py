@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 # we go dumm
 setup(
     name="infrared-fm",
-    version="2.0.0",
+    version="2.1.0",
     description="Last.FM wrapper by Infrared LLC.",
     author="infrared",
     author_email="faneorg.official@gmail.com",

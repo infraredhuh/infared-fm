@@ -11,6 +11,7 @@ ImageType = Literal["albums", "artists", "tracks"]
 ImageFormat = Literal["JPEG", "PNG"]
 TimePeriod = Literal["overall", "7day", "1month", "3month", "6month", "12month"]
 
+
 class ChartBuilder:
     def __init__(
         self,
@@ -20,29 +21,40 @@ class ChartBuilder:
         image_format: ImageFormat = "JPEG",
         background_color: str = "black"
     ):
-        """
-        Builds image collages from a user's top albums, artists, or tracks.
-
-        Args:
-            client: An instance of LastFMClient.
-            output_mode: What to return — a PIL Image, raw bytes, or save to file.
-            image_format: Format used for bytes or file output.
-            background_color: Background fill color (default: black).
-        """
         self.client = client
         self.output_mode = output_mode
         self.image_format = image_format
         self.background_color = background_color
+        self._fallback_image = Image.new("RGB", (300, 300), color="#222222")
 
-    async def _fetch_image(self, url: str) -> Optional[Image.Image]:
+    async def _fetch_image(self, url: Optional[str]) -> Image.Image:
         if not url:
-            return None
+            return self._fallback_image.copy()
         try:
             async with self.client.session.get(url) as resp:
                 if resp.status != 200:
-                    return None
+                    return self._fallback_image.copy()
                 data = await resp.read()
                 return Image.open(BytesIO(data)).convert("RGB")
+        except Exception:
+            return self._fallback_image.copy()
+
+    async def _search_itunes_art(self, query: str) -> Optional[str]:
+        url = "https://itunes.apple.com/search"
+        params = {
+            "term": query,
+            "media": "music",
+            "limit": 1,
+        }
+        try:
+            async with self.client.session.get(url, params=params) as resp:
+                if resp.status != 200:
+                    return None
+                data = await resp.json()
+                results = data.get("results")
+                if not results:
+                    return None
+                return results[0].get("artworkUrl100", "").replace("100x100", "512x512")
         except Exception:
             return None
 
@@ -59,22 +71,36 @@ class ChartBuilder:
             data = await self.client.user.get_top_albums(user=username, limit=limit, period=period)
             for album in data:
                 images = album.raw.get("image", [])
-                url = next((img["#text"] for img in reversed(images) if img["#text"]), "")
-                urls.append(url)
+                url = next((img["#text"] for img in reversed(images) if img.get("#text")), None)
+
+                if not url:
+                    query = f"{album.artist} - {album.name}" if album.artist else album.name
+                    url = await self._search_itunes_art(query)
+
+                urls.append(url or "")
 
         elif type == "artists":
             data = await self.client.user.get_top_artists(user=username, limit=limit, period=period)
             for artist in data:
                 images = artist.raw.get("image", [])
-                url = next((img["#text"] for img in reversed(images) if img["#text"]), "")
-                urls.append(url)
+                url = next((img["#text"] for img in reversed(images) if img.get("#text")), None)
+
+                if not url:
+                    url = await self._search_itunes_art(artist.name)
+
+                urls.append(url or "")
 
         elif type == "tracks":
             data = await self.client.user.get_top_tracks(user=username, limit=limit, period=period)
             for track in data:
                 images = track.raw.get("image", [])
-                url = next((img["#text"] for img in reversed(images) if img["#text"]), "")
-                urls.append(url)
+                url = next((img["#text"] for img in reversed(images) if img.get("#text")), None)
+
+                if not url:
+                    query = f"{track.artist} - {track.name}" if track.artist else track.name
+                    url = await self._search_itunes_art(query)
+
+                urls.append(url or "")
 
         return urls
 
@@ -88,36 +114,18 @@ class ChartBuilder:
         image_size: int = 300,
         output_path: Optional[str] = None
     ) -> Union[Image.Image, bytes, None]:
-        """
-        Builds and returns or saves a collage from Last.fm data.
-
-        Args:
-            username: Last.fm username to fetch data for.
-            type: 'albums', 'artists', or 'tracks'.
-            period: 'overall', '7day', '1month', '3month', '6month', or '12month'.
-            limit: Number of items to fetch.
-            grid_size: Optional grid dimension (auto if not given).
-            image_size: Size of each image in pixels.
-            output_path: File path (required if output_mode='file').
-
-        Returns:
-            - PIL.Image.Image if output_mode is 'image'
-            - bytes if output_mode is 'bytes'
-            - None if output_mode is 'file'
-        """
         urls = await self._get_image_urls(type, username, limit, period)
 
         count = min(len(urls), limit)
         grid = grid_size or math.isqrt(count)
         total_slots = grid * grid
-        urls = urls[:total_slots]
+        urls = (urls + [""] * total_slots)[:total_slots]  # pad 
 
         images = []
         for url in urls:
             img = await self._fetch_image(url)
-            if img:
-                img = img.resize((image_size, image_size))
-                images.append(img)
+            img = img.resize((image_size, image_size))
+            images.append(img)
 
         collage = Image.new(
             "RGB",
@@ -147,3 +155,4 @@ class ChartBuilder:
 
         else:
             raise ValueError(f"Invalid output_mode: {self.output_mode}")
+

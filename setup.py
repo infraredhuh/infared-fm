@@ -12,6 +12,7 @@ setup(
     package_data={"infrafm": ["py.typed"]},
     install_requires=[
         "aiohttp>=3.9.0",
+        "pillow>=9.0.0
     ],
     python_requires=">=3.8",
     classifiers=[
